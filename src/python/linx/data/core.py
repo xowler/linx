@@ -18,12 +18,17 @@ def h1d(data, hopts={}):
 
 def smooth(data,window=-1):
     if window==-1: window = max(3,.05*len(data))
-    if window%2==0: window = window + 1
+    assert window > 0
+    window = window + window%6
     w = numpy.hanning(window)
-    p = numpy.ones(numpy.floor((len(w)-1)/2))
-    r = numpy.convolve(w/sum(w), hstack([p*data[0],data,data[-1]*p]), mode='valid')
+    p = numpy.ones(numpy.floor((len(w)+1)/2))
+    r = numpy.convolve(w/sum(w), 
+          numpy.hstack(
+            [p*data[0],
+             data,
+             data[-1]*p[:-1]]), mode='valid')
     assert len(r)==len(data)
-    return data
+    return r
 
     
 #def h2d(x,y, hopts={}, popts={},log=True, levels=10,clipped=False,gaussian=True,ret=False,lines=True):
