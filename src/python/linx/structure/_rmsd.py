@@ -8,7 +8,7 @@ def rmsd_svd(a,b):
     b = b-np.sum(b,axis = 0)/n
     s = np.linalg.svd(np.dot(a.T,b),compute_uv=False)
     res =  np.sqrt( (np.sum(a*a+b*b) - 2*sum(s))/n )
-    if res == np.nan:
+    if np.isnan(res):
         res = 0
     return res
 

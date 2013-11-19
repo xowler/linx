@@ -16,7 +16,16 @@ def h1d(data, hopts={}):
     x =  (0.0 + x[:-1] + x[1:])/2
     return x,y
 
-#import scipy.ndimage
+def smooth(data,window=-1):
+    if window==-1: window = max(3,.05*len(data))
+    if window%2==0: window = window + 1
+    w = numpy.hanning(window)
+    p = numpy.ones(numpy.floor((len(w)-1)/2))
+    r = numpy.convolve(w/sum(w), hstack([p*data[0],data,data[-1]*p]), mode='valid')
+    assert len(r)==len(data)
+    return data
+
+    
 #def h2d(x,y, hopts={}, popts={},log=True, levels=10,clipped=False,gaussian=True,ret=False,lines=True):
 #    h={
 #        'bins':50,

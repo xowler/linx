@@ -3,10 +3,16 @@ import numpy
 import pylab
 
 def p1d(x,hopts={},popts={},f=None,ret=False):
-    x,y = linx.h1d(x)
+    x,y = linx.h1d(x,hopts)
     if not f==None: y = 1/0
-    pylab.plot(x,y)
+    pylab.plot(x,y,**popts)
     if ret: return x,y
+
+
+#def clines():
+#    ax = gca()
+#    while len(ax.lines)>0: a = ax.pop()
+
 
 
 
@@ -16,9 +22,6 @@ def p1d(x,hopts={},popts={},f=None,ret=False):
 #import pylab
 #import matplotlib
 #
-#def clines():
-#    ax = gca()
-#    while len(ax.lines)>0: a = ax.pop()
 #
 #
 #
